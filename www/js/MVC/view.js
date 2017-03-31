@@ -15,7 +15,16 @@ var app = function(app){
         }).addTo(front);
         
         //~~//LAYOUT//~~//
-        
+        var frontDesign = new zim.Layout({
+            holder:front,
+            regions:[
+                {object: frontButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"}
+            ],
+            lastMargin:3,
+            regionShape: new zim.Shape(),
+            scalingObject:stage,
+            backgroundColor:'red'
+        });
 
 ///////////////////////////////////////////////////////////////////////
 /////////LEFT WALL/////////////////////////////////////////////////////
@@ -30,7 +39,16 @@ var app = function(app){
         }).addTo(left);
         
         //~~//LAYOUT//~~//
-        
+        var leftDesign = new zim.Layout({
+            holder:left,
+            regions:[
+                {object: leftButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"}
+            ],
+            lastMargin:3,
+            regionShape: new zim.Shape(),
+            scalingObject:stage,
+            backgroundColor:'orange'
+        });
         
 ///////////////////////////////////////////////////////////////////////
 /////////RIGHT WALL////////////////////////////////////////////////////
@@ -46,6 +64,16 @@ var app = function(app){
         rightButton.x+=100;
         
         //~~//LAYOUT//~~//
+        var rightDesign = new zim.Layout({
+            holder:right,
+            regions:[
+                {object: rightButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"}
+            ],
+            lastMargin:3,
+            regionShape: new zim.Shape(),
+            scalingObject:stage,
+            backgroundColor:'skyblue'
+        });
         
         
 ///////////////////////////////////////////////////////////////////////
@@ -55,8 +83,22 @@ var app = function(app){
         back.name = "Back Wall";
         
         //~~//ASSETS//~~//
+        var backButton = new zim.Button({
+            color: "purple",
+            label:back.name
+        }).addTo(back);
         
         //~~//LAYOUT//~~//
+        var backDesign = new zim.Layout({
+            holder:back,
+            regions:[
+                {object: backButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"}
+            ],
+            lastMargin:3,
+            regionShape: new zim.Shape(),
+            scalingObject:stage,
+            backgroundColor:'yellow'
+        });
         
         
 ///////////////////////////////////////////////////////////////////////
@@ -66,10 +108,22 @@ var app = function(app){
         ceiling.name = "Ceiling";
         
         //~~//ASSETS//~~//
+        var ceilingButton = new zim.Button({
+            color: "purple",
+            label:ceiling.name
+        }).addTo(ceiling);
         
         //~~//LAYOUT//~~//
-        
-        
+        var ceilingDesign = new zim.Layout({
+            holder:ceiling,
+            regions:[
+                {object: ceilingButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"}
+            ],
+            lastMargin:3,
+            regionShape: new zim.Shape(),
+            scalingObject:stage,
+            backgroundColor:'deeppink'
+        }); 
         
 ///////////////////////////////////////////////////////////////////////
 /////////FLOOR/////////////////////////////////////////////////////////
@@ -78,10 +132,26 @@ var app = function(app){
         floor.name = "Floor";
         
         //~~//ASSETS//~~//
+        var floorButton = new zim.Button({
+            color: "purple",
+            label:floor.name
+        }).addTo(floor);
         
         //~~//LAYOUT//~~//
+        var floorDesign = new zim.Layout({
+            holder:floor,
+            regions:[
+                {object: floorButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"}
+            ],
+            lastMargin:3,
+            regionShape: new zim.Shape(),
+            scalingObject:stage,
+            backgroundColor:'deeppink'
+        }); 
         
-        
+            
+    var rect = new zim.Rectangle(300, 500, "black")
+        .addTo(stage).pos(0, stageH - 500);
         
         
         return pageList;

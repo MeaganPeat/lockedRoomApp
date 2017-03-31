@@ -43,6 +43,7 @@ frame.on("ready", function() {
 
     var interiorDecorator = new zim.LayoutManager;
     var pageList = app.makePages(stage, stageW, stageH, interiorDecorator);
+
     
     var pages = new zim.Pages({
         holder:stage,
@@ -51,14 +52,18 @@ frame.on("ready", function() {
             {page:pageList.left, swipe:[pageList.back, pageList.front, pageList.ceiling, pageList.floor]},//Left
             {page:pageList.right, swipe:[pageList.front, pageList.back, pageList.ceiling, pageList.floor]},//Right
             {page:pageList.back, swipe:[pageList.right, pageList.left, pageList.ceiling, pageList.floor]},//Back
-//            {},//Top
-//            {}//Floor
+            {page:pageList.ceiling, swipe:[null, null, null, "lookDown"]},//Top
+            {page:pageList.floor, swipe:[null, null, "lookUp", null]},//Floor
         ],
         transition:'slide',
         speed: 1000
     });
-    pages.addTo(stage);
-	
+    pages.addTo(stage, 0);
+    
+//    
+//    var rect = new zim.Rectangle(300, 500, "black")
+//        .addTo(stage).pos(0, stageH - 500);
+    
     var c = app.makeController(stage, pageList, pages);
     
     frame.on("resize", function(){
