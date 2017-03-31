@@ -2,51 +2,87 @@ var app = function(app){
     app.makePages = function(stage, stageW, stageH, layoutManager){
         var pageList = {};
         
-        ////FRONT WALL/////
+///////////////////////////////////////////////////////////////////////
+/////////FRONT WALL////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
         var front = pageList.front = new zim.Container(stageW, stageH);
         front.name = "Front Wall";
         
+        //~~//ASSETS//~~//
         var frontButton = new zim.Button({
             color: "blue",
             label:front.name
         }).addTo(front);
         
+        //~~//LAYOUT//~~//
         
-        ///LEFT WALL//////
-        var leftWall = pageList.left = new zim.Container(stageW, stageH);
-        leftWall.name = "Left Wall";
+
+///////////////////////////////////////////////////////////////////////
+/////////LEFT WALL/////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+        var left = pageList.left = new zim.Container(stageW, stageH);
+        left.name = "Left Wall";
         
+        //~~//ASSETS//~~//
         var leftButton = new zim.Button({
             color: "red",
-            label:leftWall.name
-        }).addTo(leftWall);
+            label:left.name
+        }).addTo(left);
+        
+        //~~//LAYOUT//~~//
         
         
-        ///RIGHT WALL//////
-        var rightWall = pageList.right = new zim.Container(stageW, stageH);
-        rightWall.name = "Right Wall";
+///////////////////////////////////////////////////////////////////////
+/////////RIGHT WALL////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+        var right = pageList.right = new zim.Container(stageW, stageH);
+        right.name = "Right Wall";
         
+        //~~//ASSETS//~~//
         var rightButton = new zim.Button({
             color: "purple",
-            label:rightWall.name
-        }).addTo(rightWall);
+            label:right.name
+        }).addTo(right);
+        rightButton.x+=100;
+        
+        //~~//LAYOUT//~~//
         
         
-        ///BACK WALL//////
-        var backWall = pageList.back = new zim.Container(stageW, stageH);
-        backWall.name = "Back Wall";
+///////////////////////////////////////////////////////////////////////
+/////////BACK WALL/////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+        var back = pageList.back = new zim.Container(stageW, stageH);
+        back.name = "Back Wall";
+        
+        //~~//ASSETS//~~//
+        
+        //~~//LAYOUT//~~//
         
         
-        
-        ///CEILING//////
+///////////////////////////////////////////////////////////////////////
+/////////CEILING///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
         var ceiling = pageList.ceiling = new zim.Container(stageW, stageH);
         ceiling.name = "Ceiling";
         
+        //~~//ASSETS//~~//
+        
+        //~~//LAYOUT//~~//
         
         
-        //////Floor//////
+        
+///////////////////////////////////////////////////////////////////////
+/////////FLOOR/////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
         var floor = pageList.floor = new zim.Container(stageW, stageH);
         floor.name = "Floor";
+        
+        //~~//ASSETS//~~//
+        
+        //~~//LAYOUT//~~//
+        
+        
+        
         
         return pageList;
     }
