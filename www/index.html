@@ -10,9 +10,9 @@
 <!-- ZIM is free to use. You can donate to help improve ZIM at http://zimjs.com/donate 	-->
 
 <!-- as of ZIM 4.3.0 load createjs namespace first -->
-<script src="js/createjs-2015.11.26.min.js"></script>
+<script src="js/Libraries/createjs-2015.11.26.min.js"></script>
 <script>var zon = true; // true for comments from zim code</script>
-<script src="js/zim_4.8.0.js"></script>
+<script src="js/Libraries/zim_4.8.0.js"></script>
 <!-- use zimjs.com/code/distill for minified individual functions! -->
 
 <!--External JavaScript-->
@@ -42,24 +42,24 @@ frame.on("ready", function() {
 	var stageH = frame.height;
 
     var layoutManager = new zim.LayoutManager;
-    var p = app.makePages(stage, stageW, stageH, layoutManager);
+    var pageList = app.makePages(stage, stageW, stageH, layoutManager);
     
     var pages = new zim.Pages({
         holder:stage,
         pages:[
-            {},//Front
-            {},//Left
-            {},//Right
-            {},//Back
-            {},//Top
-            {}//Floor
+            {page:pageList.front, swipe:[pageList.left, pageList.right, pageList.ceiling, pageList.floor]},//Front
+            {page:pageList.left, swipe:[pageList.back, pageList.front, pageList.ceiling, pageList.floor]},//Left
+            {page:pageList.right, swipe:[pageList.front, pageList.back, pageList.ceiling, pageList.floor]},//Right
+            {page:pageList.back, swipe:[pageList.right, pageList.left, pageList.ceiling, pageList.floor]},//Back
+//            {},//Top
+//            {}//Floor
         ],
         transition:'slide',
-        speed: 800
+        speed: 1000
     });
     pages.addTo(stage);
 	
-    var c = app,makeController(stage, p, pages);
+    var c = app.makeController(stage, pageList, pages);
     
     frame.on("resize", function(){
         layoutManager.resize();
