@@ -41,8 +41,8 @@ frame.on("ready", function() {
 	var stageW = frame.width;
 	var stageH = frame.height;
 
-    var layoutManager = new zim.LayoutManager;
-    var pageList = app.makePages(stage, stageW, stageH, layoutManager);
+    var interiorDecorator = new zim.LayoutManager;
+    var pageList = app.makePages(stage, stageW, stageH, interiorDecorator);
     
     var pages = new zim.Pages({
         holder:stage,
@@ -62,7 +62,7 @@ frame.on("ready", function() {
     var c = app.makeController(stage, pageList, pages);
     
     frame.on("resize", function(){
-        layoutManager.resize();
+        interiorDecorator.resize();
         pages.resize();
     });
 
