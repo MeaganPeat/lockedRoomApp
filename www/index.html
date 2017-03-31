@@ -41,13 +41,34 @@ frame.on("ready", function() {
 	var stageW = frame.width;
 	var stageH = frame.height;
 
-	// put your code here (you can delete this code)
-
+    var layoutManager = new zim.LayoutManager;
+    var p = app.makePages(stage, stageW, stageH, layoutManager);
+    
+    var pages = new zim.Pages({
+        holder:stage,
+        pages:[
+            {},//Front
+            {},//Left
+            {},//Right
+            {},//Back
+            {},//Top
+            {}//Floor
+        ],
+        transition:'slide',
+        speed: 800
+    });
+    pages.addTo(stage);
 	
+    var c = app,makeController(stage, p, pages);
+    
+    frame.on("resize", function(){
+        layoutManager.resize();
+        pages.resize();
+    });
 
 	stage.update(); // update the stage to see any changes
 
-}); // end of ready
+}, null, true); // end of ready
 </script>
 </head>
 
