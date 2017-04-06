@@ -25,7 +25,7 @@ var app = function(app){
             scalingObject:stage,
             backgroundColor:'red'
         });
-
+        layoutManager.add(frontDesign);
 ///////////////////////////////////////////////////////////////////////
 /////////LEFT WALL/////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
@@ -49,7 +49,7 @@ var app = function(app){
             scalingObject:stage,
             backgroundColor:'orange'
         });
-        
+        layoutManager.add(leftDesign);
 ///////////////////////////////////////////////////////////////////////
 /////////RIGHT WALL////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
@@ -74,7 +74,7 @@ var app = function(app){
             scalingObject:stage,
             backgroundColor:'skyblue'
         });
-        
+        layoutManager.add(rightDesign);
         
 ///////////////////////////////////////////////////////////////////////
 /////////BACK WALL/////////////////////////////////////////////////////
@@ -99,7 +99,7 @@ var app = function(app){
             scalingObject:stage,
             backgroundColor:'yellow'
         });
-        
+        layoutManager.add(backDesign);
         
 ///////////////////////////////////////////////////////////////////////
 /////////CEILING///////////////////////////////////////////////////////
@@ -124,6 +124,7 @@ var app = function(app){
             scalingObject:stage,
             backgroundColor:'deeppink'
         }); 
+        layoutManager.add(ceilingDesign);
         
 ///////////////////////////////////////////////////////////////////////
 /////////FLOOR/////////////////////////////////////////////////////////
@@ -148,10 +149,30 @@ var app = function(app){
             scalingObject:stage,
             backgroundColor:'deeppink'
         }); 
+        layoutManager.add(floorDesign);
+         
+///////////////////////////////////////////////////////////////////////
+/////////FLOATING RECTANGLE////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+        var inventoryBackground = frame.dark;
         
-            
-    var rect = new zim.Rectangle(300, 500, "black")
-        .addTo(stage).pos(0, stageH - 500);
+        var inventory = new zim.Container(stageW, stageH)
+            .addTo(stage);
+        inventory.name = 'Inventory';
+        
+        var box = new zim.Rectangle(900, 300, inventoryBackground)
+        .addTo(inventory).pos(0, stageH - 300);
+        
+        var inventoryLayout = new zim.Layout({
+            holder:inventory,
+            regions:[
+                {object:box, marginTop:80, maxWidth:100, minWidth:100, height:20, backgroundColor:"blue"}
+            ],
+            lastMargin:0,
+            scalingObject:stage
+        });
+        layoutManager.add(inventoryLayout);
+        
         
         
         return pageList;

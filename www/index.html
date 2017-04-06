@@ -12,7 +12,7 @@
 <!-- as of ZIM 4.3.0 load createjs namespace first -->
 <script src="js/Libraries/createjs-2015.11.26.min.js"></script>
 <script>var zon = true; // true for comments from zim code</script>
-<script src="js/Libraries/zim_4.8.0.js"></script>
+<script src="js/Libraries/zim_4.9.2.js"></script>
 <!-- use zimjs.com/code/distill for minified individual functions! -->
 
 <!--External JavaScript-->
@@ -60,9 +60,6 @@ frame.on("ready", function() {
     });
     pages.addTo(stage, 0);
     
-//    
-//    var rect = new zim.Rectangle(300, 500, "black")
-//        .addTo(stage).pos(0, stageH - 500);
     
     var c = app.makeController(stage, pageList, pages);
     
