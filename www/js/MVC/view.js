@@ -14,11 +14,18 @@ var app = function(app){
             label:front.name
         }).addTo(front);
         
+            
+        var testBall = new zim.Circle(50, "orange")
+            .addTo(front)
+            .pos(stageW/2, stageH/2);
+//            .drag();
+        pageList.front.testBall = testBall;
+        
         //~~//LAYOUT//~~//
         var frontDesign = new zim.Layout({
             holder:front,
             regions:[
-                {object: frontButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"}
+                {object: frontButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"},
             ],
             lastMargin:3,
             regionShape: new zim.Shape(),
@@ -156,17 +163,18 @@ var app = function(app){
 ///////////////////////////////////////////////////////////////////////
         var inventoryBackground = frame.dark;
         
-        var inventory = new zim.Container(stageW, stageH)
+        var inventory = pageList.inventory = new zim.Container(stageW, stageH)
             .addTo(stage);
         inventory.name = 'Inventory';
         
-        var box = new zim.Rectangle(900, 300, inventoryBackground)
+        
+        var box = pageList.inventory.box =  new zim.Rectangle(900, 300, inventoryBackground)
         .addTo(inventory).pos(0, stageH - 300);
         
         var inventoryLayout = new zim.Layout({
             holder:inventory,
             regions:[
-                {object:box, marginTop:80, maxWidth:100, minWidth:100, height:20, backgroundColor:"blue"}
+                {object:box, marginTop:80, maxWidth:100, minWidth:100, height:20, backgroundColor:frame.dark}
             ],
             lastMargin:0,
             scalingObject:stage

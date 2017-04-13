@@ -12,6 +12,18 @@ var app = function(app){
             pages.go(pages.lastPage, "up");
         });
         
+        //handle inventory
+        var inventory = pageList.inventory.box;
+        
+        var ball = pageList.front.testBall;
+        ball.drag();
+        ball.hit = false;
+        
+        zim.Ticker.add(function(){
+            if (ball.hitTestBounds(inventory)){
+                zog("hitting");
+            }               
+        }, stage);
     }
 
     return app;
