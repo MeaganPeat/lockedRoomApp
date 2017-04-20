@@ -5,7 +5,7 @@ var app = function(app){
 
 ///``~~~~~~~~~~~~~``//COLOURS//``~~~~~~~~~~~~~``//
         var inventoryBackground = frame.dark;
-        
+        var wallpaper = frame.blue;
         
 ///////////////////////////////////////////////////////////////////////
 /////////FRONT WALL////////////////////////////////////////////////////
@@ -39,7 +39,7 @@ var app = function(app){
             lastMargin:0,
             //regionShape: new zim.Shape(),
             scalingObject:stage,
-            backgroundColor:'red'
+            backgroundColor:wallpaper
         });
         layoutManager.add(frontDesign);
 ///////////////////////////////////////////////////////////////////////
@@ -68,7 +68,7 @@ var app = function(app){
             lastMargin:0,
             //regionShape: new zim.Shape(),
             scalingObject:stage,
-            backgroundColor:'orange'
+            backgroundColor:wallpaper
         });
         layoutManager.add(leftDesign);
 ///////////////////////////////////////////////////////////////////////
@@ -98,7 +98,7 @@ var app = function(app){
             lastMargin:0,
             //regionShape: new zim.Shape(),
             scalingObject:stage,
-            backgroundColor:'skyblue'
+            backgroundColor:wallpaper
         });
         layoutManager.add(rightDesign);
         
@@ -128,7 +128,7 @@ var app = function(app){
             lastMargin:0,
             //regionShape: new zim.Shape(),
             scalingObject:stage,
-            backgroundColor:'yellow'
+            backgroundColor:wallpaper
         });
         layoutManager.add(backDesign);
         

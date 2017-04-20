@@ -40,6 +40,8 @@ frame.on("ready", function() {
 	var stage = frame.stage;
 	var stageW = frame.width;
 	var stageH = frame.height;
+    
+    //load assets here
 
     var interiorDecorator = new zim.LayoutManager;
     var pageList = app.makePages(stage, stageW, stageH, interiorDecorator);
@@ -56,7 +58,7 @@ frame.on("ready", function() {
             {page:pageList.floor, swipe:[null, null, "lookUp", null]},//Floor
         ],
         transition:'slide',
-        speed: 500
+        speed: 650
     });
     pages.addTo(stage, 0);
     
