@@ -1,6 +1,11 @@
 var app = function(app){
     app.makePages = function(stage, stageW, stageH, layoutManager){
         var pageList = {};
+
+
+///``~~~~~~~~~~~~~``//COLOURS//``~~~~~~~~~~~~~``//
+        var inventoryBackground = frame.dark;
+        
         
 ///////////////////////////////////////////////////////////////////////
 /////////FRONT WALL////////////////////////////////////////////////////
@@ -20,7 +25,7 @@ var app = function(app){
             .pos(stageW/2, stageH/2);
         pageList.front.testBall = testBall;
         
-        var boxf = new zim.Rectangle(900, 300, inventoryBackground)
+        var box = new zim.Rectangle(900, 300, inventoryBackground)
             .addTo(front)
             .pos(0, stageH - 300);
         
@@ -29,10 +34,10 @@ var app = function(app){
             holder:front,
             regions:[
                 {object: frontButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"},
-                {object: boxf, marginTop:1, align:"center", valign:"top"}
+                {object: box, marginTop:1, align:"center", valign:"top"}
             ],
             lastMargin:0,
-            regionShape: new zim.Shape(),
+            //regionShape: new zim.Shape(),
             scalingObject:stage,
             backgroundColor:'red'
         });
@@ -49,14 +54,19 @@ var app = function(app){
             label:left.name
         }).addTo(left);
         
+        var boxl = box.clone();
+        boxl.addTo(left)
+            .pos(0, stageH - 300);
+        
         //~~//LAYOUT//~~//
         var leftDesign = new zim.Layout({
             holder:left,
             regions:[
-                {object: leftButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"}
+                {object: leftButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"},
+                {object: boxl, marginTop:1, align:"center", valign:"top"}
             ],
-            lastMargin:3,
-            regionShape: new zim.Shape(),
+            lastMargin:0,
+            //regionShape: new zim.Shape(),
             scalingObject:stage,
             backgroundColor:'orange'
         });
@@ -74,14 +84,19 @@ var app = function(app){
         }).addTo(right);
         rightButton.x+=100;
         
+        var boxr = box.clone();
+        boxr.addTo(right)
+            .pos(0, stageH - 300);
+        
         //~~//LAYOUT//~~//
         var rightDesign = new zim.Layout({
             holder:right,
             regions:[
-                {object: rightButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"}
+                {object: rightButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"},
+                {object: boxr, marginTop:1, align:"center", valign:"top"}
             ],
-            lastMargin:3,
-            regionShape: new zim.Shape(),
+            lastMargin:0,
+            //regionShape: new zim.Shape(),
             scalingObject:stage,
             backgroundColor:'skyblue'
         });
@@ -98,15 +113,20 @@ var app = function(app){
             color: "purple",
             label:back.name
         }).addTo(back);
+
+        var boxb = box.clone();
+        boxb.addTo(back)
+            .pos(0, stageH - 300);
         
         //~~//LAYOUT//~~//
         var backDesign = new zim.Layout({
             holder:back,
             regions:[
-                {object: backButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"}
+                {object: backButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"},
+                {object: boxb, marginTop:1, align:"center", valign:"top"}
             ],
-            lastMargin:3,
-            regionShape: new zim.Shape(),
+            lastMargin:0,
+            //regionShape: new zim.Shape(),
             scalingObject:stage,
             backgroundColor:'yellow'
         });
@@ -124,14 +144,19 @@ var app = function(app){
             label:ceiling.name
         }).addTo(ceiling);
         
+        var boxc = box.clone();
+        boxc.addTo(ceiling)
+            .pos(0, stageH - 300);
+        
         //~~//LAYOUT//~~//
         var ceilingDesign = new zim.Layout({
             holder:ceiling,
             regions:[
-                {object: ceilingButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"}
+                {object: ceilingButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"},
+                {object: boxc, marginTop:1, align:"center", valign:"top"}
             ],
-            lastMargin:3,
-            regionShape: new zim.Shape(),
+            lastMargin:0,
+            //regionShape: new zim.Shape(),
             scalingObject:stage,
             backgroundColor:'deeppink'
         }); 
@@ -149,23 +174,28 @@ var app = function(app){
             label:floor.name
         }).addTo(floor);
         
+        var boxf = box.clone();
+        boxf.addTo(floor)
+            .pos(0, stageH - 300);
+        
         //~~//LAYOUT//~~//
         var floorDesign = new zim.Layout({
             holder:floor,
             regions:[
-                {object: floorButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"}
+                {object: floorButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"},
+                {object: boxf, marginTop:1, align:"center", valign:"top"}
             ],
-            lastMargin:3,
-            regionShape: new zim.Shape(),
+            lastMargin:0,
+            //regionShape: new zim.Shape(),
             scalingObject:stage,
             backgroundColor:'deeppink'
         }); 
         layoutManager.add(floorDesign);
          
 ///////////////////////////////////////////////////////////////////////
-/////////FLOATING RECTANGLE////////////////////////////////////////////
+/////////FLOATING RECTANGLEs///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
-        var inventoryBackground = frame.dark;
+        //var inventoryBackground = frame.dark;
         
         var inventory = pageList.inventory = new zim.Container(stageW, stageH)
             .addTo(stage);

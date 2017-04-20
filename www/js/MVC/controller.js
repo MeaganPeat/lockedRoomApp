@@ -1,42 +1,91 @@
 var app = function(app){
     app.makeController = function(stage, pageList, pages){
+        var inventoryBox = pageList.inventory.box;
+        
+        //get pages and objects
+        ////PAGES////
+        //might not need actually
+        var front = pageList.front;
+        var left = pageList.left;
+        var right = pageList.right;
+        var back = pageList.back;
+        var ceiling = pageList.ceiling;
+        var floor = pageList.floor;
+        
+        //get first page
+        var currentPage = pageList.front;      
         pages.on("pagetransitioned", function(e){
-            //THIS IS PROBABLY WHERE I NEED TO KEEP TRACK OF CURRENT PAGE AND LAST PAGE
-            console.log(pages.page.name);
+            //inventoryBox.alpha=.01;
+            //console.log(pages.page.name);
+            //console.log(pages.page);
+            
+            switch(pages.page.name){
+                case "Front Wall":
+                    currentPage = pageList.front;
+                    break;
+                case "Left Wall":
+                    currentPage = pageList.left;
+                    break;
+                case "Right Wall":
+                    currentPage = pageList.right;
+                    break;
+                case "Back Wall":
+                    currentPage = pageList.back;
+                    break;
+                case "Ceiling":
+                    currentPage = pageList.ceiling;
+                    break;
+                case "Floor":
+                    currentPage = pageList.floor;
+            }
+            //console.log(currentPage.name);
+            stage.update();
         });
         
         pages.on("lookDown", function(e){
+            //inventoryBox.alpha=1;
+            stage.update();
             pages.go(pages.lastPage, "down");
         });
         pages.on("lookUp", function(e){
+            //inventoryBox.alpha=1;
+            stage.update();
             pages.go(pages.lastPage, "up");
         });
         
-        //handle inventory
+        
         var inventory = pageList.inventory;
-        var inventoryBox = pageList.inventory.box;
-        var front = pageList.front;
+        //var inventoryBox = pageList.inventory.box;
+        //var front = pageList.front;
         var ball = pageList.front.testBall;
         ball.drag();
-        ball.hit = true;
+        ball.loc = front;
+        
+        
         
         ball.on('pressup', function(){
-            zog('drop');
-            checkHitting();
+            checkInventory(ball);
         });
         
-        function checkHitting(){
-            if(ball.hitTestBounds(inventoryBox)){
+        //handle inventory
+        function checkInventory(obj){
+            var x = obj.x;
+            var y = ball.y;
+            if(obj.hitTestBounds(inventoryBox)){
                 zog('hitting');
-                front.removeChild(ball);
-                var x = ball.x;
-                var y = ball.y;
-                
-                inventory.addChild(ball);
-                ball.x = x;
-                ball.y = y;
-                stage.update();
+                currentPage.removeChild(obj);
+                inventory.addChild(obj);
+                obj.loc=inventory;
+                obj.x = x;
+                obj.y = y;
+            } else {
+                inventory.removeChild(obj);
+                currentPage.addChild(obj);
+                obj.loc=currentPage;
+                obj.x = x;
+                obj.y = y;
             }
+            stage.update();
         }
         
 //        zim.Ticker.add(function(){
