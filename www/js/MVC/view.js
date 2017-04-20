@@ -4,8 +4,21 @@ var app = function(app){
 
 
 ///``~~~~~~~~~~~~~``//COLOURS//``~~~~~~~~~~~~~``//
-        var inventoryBackground = frame.dark;
-        var wallpaper = frame.blue;
+        //pallet colours
+        var purple = "#6A27AA";
+        var purpleL = "#EBE2F4";
+        var purpleBlue = '#4F06C5';
+        var purpleBlueL = '#C5ADEC';
+        var greyBlue= '#76A0AE';
+        var greyBlueL= '#EDF2F4';
+        var gold = '#ECB31C';
+        var goldD = '#4E3A09';
+        var darkGrey = '#252831';
+        
+        var inventoryBackground = darkGrey;
+        var wallpaper = purpleBlueL;
+        var ceilingPaint = greyBlueL;
+        var carpet = goldD;
         
 ///////////////////////////////////////////////////////////////////////
 /////////FRONT WALL////////////////////////////////////////////////////
@@ -158,7 +171,7 @@ var app = function(app){
             lastMargin:0,
             //regionShape: new zim.Shape(),
             scalingObject:stage,
-            backgroundColor:'deeppink'
+            backgroundColor:ceilingPaint
         }); 
         layoutManager.add(ceilingDesign);
         
@@ -188,7 +201,7 @@ var app = function(app){
             lastMargin:0,
             //regionShape: new zim.Shape(),
             scalingObject:stage,
-            backgroundColor:'deeppink'
+            backgroundColor:carpet
         }); 
         layoutManager.add(floorDesign);
          
