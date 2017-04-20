@@ -1,7 +1,6 @@
 var app = function(app){
     app.makeController = function(stage, pageList, pages){
-        var inventoryBox = pageList.inventory.box;
-        
+                
         //get pages and objects
         ////PAGES////
         //might not need actually
@@ -55,17 +54,21 @@ var app = function(app){
         
         
         var inventory = pageList.inventory;
-        //var inventoryBox = pageList.inventory.box;
+        var inventoryBox = pageList.inventory.box;
+        var textBox = pageList.inventory.textBox;
         //var front = pageList.front;
         var ball = pageList.front.testBall;
         ball.drag();
         ball.loc = front;
-        
-        
-        
+        ball.safeCheck = true
+        safeX = ball.x;
+        safeY = ball.y;
+
         ball.on('pressup', function(){
-            checkInventory(ball);
+                checkTextBox(ball);
+                checkInventory(ball);
         });
+    
         
         //handle inventory
         function checkInventory(obj){
@@ -87,6 +90,14 @@ var app = function(app){
             }
             stage.update();
         }
+        
+        function checkTextBox(obj){
+            if(obj.hitTestBounds(textBox)){
+                zim.move(obj, safeX, safeY, 500);
+            }
+
+        }
+            
         
 //        zim.Ticker.add(function(){
 //            if (ball.hitTestBounds(inventory)&&ball.hit){

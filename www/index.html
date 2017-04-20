@@ -46,23 +46,19 @@ frame.on("ready", function() {
     waiter.scale(8);
     
     //load assets here
-    frame.loadAssets(['key.png', 'lock.png'], "images/");
+    frame.loadAssets(['key.png', 'lock.png', 'locked.png', 'unlocked.png'], "images/");
     
     frame.on('complete', function(){
         waiter.hide();
-        var key = frame.asset('key.png')
-            .addTo(stage)
-            .scale(.1);
-        key.drag();
+        //store assets in an object
+        var assets = {key:frame.asset('key.png'), 
+                      lock:frame.asset('lock.png'),
+                      locked:frame.asset('locked.png'),
+                      opened:frame.asset('unlocked.png')
+                     };
         
-        var key2 = key.clone()
-            .addTo(stage)
-            .pos(100, 100);
-        key2.drag();
-        
-        zog('images uploaded!');
         var interiorDecorator = new zim.LayoutManager;
-        var pageList = app.makePages(stage, stageW, stageH, interiorDecorator);
+        var pageList = app.makePages(stage, stageW, stageH, interiorDecorator, assets);
 
 
         var pages = new zim.Pages({

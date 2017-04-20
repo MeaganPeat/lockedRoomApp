@@ -1,6 +1,9 @@
 var app = function(app){
-    app.makePages = function(stage, stageW, stageH, layoutManager){
+    app.makePages = function(stage, stageW, stageH, layoutManager, assets){
         var pageList = {};
+        
+        var key = assets.key;
+        //stage.addChild(key);
 
 
 ///``~~~~~~~~~~~~~``//COLOURS//``~~~~~~~~~~~~~``//
@@ -14,11 +17,13 @@ var app = function(app){
         var gold = '#ECB31C';
         var goldD = '#4E3A09';
         var darkGrey = '#252831';
+        var richBrown = '#281E05';
         
         var inventoryBackground = darkGrey;
         var wallpaper = purpleBlueL;
         var ceilingPaint = greyBlueL;
-        var carpet = goldD;
+        var wood = goldD;
+        var woodGrains = richBrown;
         
 ///////////////////////////////////////////////////////////////////////
 /////////FRONT WALL////////////////////////////////////////////////////
@@ -181,12 +186,13 @@ var app = function(app){
         var floor = pageList.floor = new zim.Container(stageW, stageH);
         floor.name = "Floor";
         
+
         //~~//ASSETS//~~//
         var floorButton = new zim.Button({
             color: "purple",
             label:floor.name
         }).addTo(floor);
-        
+             
         var boxf = box.clone();
         boxf.addTo(floor)
             .pos(0, stageH - 300);
@@ -201,15 +207,13 @@ var app = function(app){
             lastMargin:0,
             //regionShape: new zim.Shape(),
             scalingObject:stage,
-            backgroundColor:carpet
+            backgroundColor:wood
         }); 
         layoutManager.add(floorDesign);
          
 ///////////////////////////////////////////////////////////////////////
 /////////FLOATING RECTANGLEs///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
-        //var inventoryBackground = frame.dark;
-        
         var inventory = pageList.inventory = new zim.Container(stageW, stageH)
             .addTo(stage);
         inventory.name = 'Inventory';
@@ -217,12 +221,19 @@ var app = function(app){
         
         var box = pageList.inventory.box =  new zim.Rectangle(900, 300, inventoryBackground)
         .addTo(inventory).pos(0, stageH - 300);
+        
+        
+        var textBox = pageList.inventory.textBox = box.clone();
+        textBox.addTo(inventory).pos(0, 0);
+        
         box.alpha=0.01;
         
         var inventoryLayout = new zim.Layout({
             holder:inventory,
             regions:[
-                {object:box, marginTop:80, maxWidth:100, minWidth:100, height:20}
+                {object:textBox, marginTop:0, maxWidth:100, minWidth:100 },
+                {object:box, marginTop:1, align:"center", valign:"top"}
+                
             ],
             lastMargin:0,
             scalingObject:stage
