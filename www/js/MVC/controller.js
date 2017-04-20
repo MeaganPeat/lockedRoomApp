@@ -13,17 +13,41 @@ var app = function(app){
         });
         
         //handle inventory
-        var inventory = pageList.inventory.box;
-        
+        var inventory = pageList.inventory;
+        var inventoryBox = pageList.inventory.box;
+        var front = pageList.front;
         var ball = pageList.front.testBall;
         ball.drag();
-        ball.hit = false;
+        ball.hit = true;
         
-        zim.Ticker.add(function(){
-            if (ball.hitTestBounds(inventory)){
-                zog("hitting");
-            }               
-        }, stage);
+        ball.on('pressup', function(){
+            zog('drop');
+            checkHitting();
+        });
+        
+        function checkHitting(){
+            if(ball.hitTestBounds(inventoryBox)){
+                zog('hitting');
+                front.removeChild(ball);
+                var x = ball.x;
+                var y = ball.y;
+                
+                inventory.addChild(ball);
+                ball.x = x;
+                ball.y = y;
+                stage.update();
+            }
+        }
+        
+//        zim.Ticker.add(function(){
+//            if (ball.hitTestBounds(inventory)&&ball.hit){
+//                zog("hitting");
+//                ball.hit=false;
+//            }               
+//        }, stage);
+        
+        
+        
     }
 
     return app;

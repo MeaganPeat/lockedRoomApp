@@ -18,16 +18,20 @@ var app = function(app){
         var testBall = new zim.Circle(50, "orange")
             .addTo(front)
             .pos(stageW/2, stageH/2);
-//            .drag();
         pageList.front.testBall = testBall;
+        
+        var boxf = new zim.Rectangle(900, 300, inventoryBackground)
+            .addTo(front)
+            .pos(0, stageH - 300);
         
         //~~//LAYOUT//~~//
         var frontDesign = new zim.Layout({
             holder:front,
             regions:[
                 {object: frontButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"},
+                {object: boxf, marginTop:1, align:"center", valign:"top"}
             ],
-            lastMargin:3,
+            lastMargin:0,
             regionShape: new zim.Shape(),
             scalingObject:stage,
             backgroundColor:'red'
@@ -170,11 +174,12 @@ var app = function(app){
         
         var box = pageList.inventory.box =  new zim.Rectangle(900, 300, inventoryBackground)
         .addTo(inventory).pos(0, stageH - 300);
+        box.alpha=0.01;
         
         var inventoryLayout = new zim.Layout({
             holder:inventory,
             regions:[
-                {object:box, marginTop:80, maxWidth:100, minWidth:100, height:20, backgroundColor:frame.dark}
+                {object:box, marginTop:80, maxWidth:100, minWidth:100, height:20}
             ],
             lastMargin:0,
             scalingObject:stage
