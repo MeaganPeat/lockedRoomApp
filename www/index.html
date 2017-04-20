@@ -32,7 +32,7 @@
 var scaling = "full"; // fit scales to fit the browser window while keeping the aspect ratio
 var width = null; // can go higher...
 var height = null;
-var color = "#acd241";
+var color = "#252831";
 var frame = new zim.Frame(scaling, width, height, color); // see docs for more options and info
 frame.on("ready", function() {
 	zog("ready from ZIM Frame");
@@ -41,34 +41,55 @@ frame.on("ready", function() {
 	var stageW = frame.width;
 	var stageH = frame.height;
     
+    var waiter = new zim.Waiter(stage, 700, '#4F06C5', '#ECB31C', null, null, null, 100);
+    waiter.show();
+    waiter.scale(8);
+    
     //load assets here
+    frame.loadAssets(['key.png', 'lock.png'], "images/");
+    
+    frame.on('complete', function(){
+        waiter.hide();
+        var key = frame.asset('key.png')
+            .addTo(stage)
+            .scale(.1);
+        key.drag;
+        
+        var key2 = key.clone()
+            .addTo(stage)
+            .pos(100, 100);
+        key2.drag();
+        
+        zog('images uploaded!');
+        var interiorDecorator = new zim.LayoutManager;
+        var pageList = app.makePages(stage, stageW, stageH, interiorDecorator);
 
-    var interiorDecorator = new zim.LayoutManager;
-    var pageList = app.makePages(stage, stageW, stageH, interiorDecorator);
 
-    
-    var pages = new zim.Pages({
-        holder:stage,
-        pages:[
-            {page:pageList.front, swipe:[pageList.left, pageList.right, pageList.ceiling, pageList.floor]},//Front
-            {page:pageList.left, swipe:[pageList.back, pageList.front, pageList.ceiling, pageList.floor]},//Left
-            {page:pageList.right, swipe:[pageList.front, pageList.back, pageList.ceiling, pageList.floor]},//Right
-            {page:pageList.back, swipe:[pageList.right, pageList.left, pageList.ceiling, pageList.floor]},//Back
-            {page:pageList.ceiling, swipe:[null, null, null, "lookDown"]},//Top
-            {page:pageList.floor, swipe:[null, null, "lookUp", null]},//Floor
-        ],
-        transition:'slide',
-        speed: 650
-    });
-    pages.addTo(stage, 0);
-    
-    
-    var c = app.makeController(stage, pageList, pages);
-    
-    frame.on("resize", function(){
-        interiorDecorator.resize();
-        pages.resize();
-    });
+        var pages = new zim.Pages({
+            holder:stage,
+            pages:[
+                {page:pageList.front, swipe:[pageList.left, pageList.right, pageList.ceiling, pageList.floor]},//Front
+                {page:pageList.left, swipe:[pageList.back, pageList.front, pageList.ceiling, pageList.floor]},//Left
+                {page:pageList.right, swipe:[pageList.front, pageList.back, pageList.ceiling, pageList.floor]},//Right
+                {page:pageList.back, swipe:[pageList.right, pageList.left, pageList.ceiling, pageList.floor]},//Back
+                {page:pageList.ceiling, swipe:[null, null, null, "lookDown"]},//Top
+                {page:pageList.floor, swipe:[null, null, "lookUp", null]},//Floor
+            ],
+            transition:'slide',
+            speed: 650
+        });
+        pages.addTo(stage, 0);
+
+
+        var c = app.makeController(stage, pageList, pages);
+
+        frame.on("resize", function(){
+            interiorDecorator.resize();
+            pages.resize();
+        });
+
+        stage.update(); // update the stage to see any changes
+    });//end of complete
 
 	stage.update(); // update the stage to see any changes
 
