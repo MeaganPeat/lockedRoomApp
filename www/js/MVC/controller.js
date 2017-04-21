@@ -97,7 +97,7 @@ var app = function(app){
         var rustle = false
         var leftBall = ball.clone();
         leftBall.color = 'blue';
-        leftBall.alpha = 0;
+        //leftBall.alpha = 0;
         
         curtains = left.curtains;
         curtains.on('click', function(){
@@ -107,16 +107,30 @@ var app = function(app){
                 x:curtains.x-3, 
                 y:curtains.y,
                 time: 100,
-                ease:"bounceOut",
+                ease:"bounceIn",
                 loop:true,
                 loopCount:3, 
                 rewind:true,
                 call: dropBall
-                     });
+            });
         });
         
         function dropBall(){
-            leftBall.addTo(left);
+            if(!rustle){
+                leftBall.addTo(left).pos(stage.w/2, stage.h/5);
+                zim.move({
+                    target:leftBall, 
+                    x:leftBall.x, 
+                    y:stage.w+(stage.w/4),
+                    time: 800,
+                    ease:"bounceOut",
+                }); 
+                rustle = true;
+                leftBall.drag();
+                leftBall.on('pressup', function(){
+                    checkInventory(leftBall);
+                });
+            }
         }
         
         ////////////////////////////////////////
