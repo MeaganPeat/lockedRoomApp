@@ -140,7 +140,6 @@ var app = function(app){
               var rand = zim.rand(0,1);
               ballContainer.addChild(current);
               current.x = (radius*2 + space)*i
-                console.log('adding');
               if(i%2 == 0){
                 current.y = top;
               } else {
@@ -164,7 +163,7 @@ var app = function(app){
             regions:[
                 {object: lampH, marginTop:5, width: 100, maxWidth:100, height:30, align:"center", valign:"top"},
                 {object: lamp, marginTop:0, width: 100, maxWidth:100, height:30, align:"center", valign:"top"},
-                {object: boxr, marginTop:1, height:20, align:"center", valign:"top", backgroundColor: inventoryBackground}
+                {object: boxr, marginTop:1, align:"center", valign:"top", backgroundColor: inventoryBackground}
             ],
             lastMargin:0,
             //regionShape: new zim.Shape(),
@@ -180,13 +179,13 @@ var app = function(app){
         
         var safe = new zim.Container().addTo(back);
         
-        var openedSafe = back.safeO = assets.safeC.addTo(safe);
+        var openedSafe = back.safeO = assets.safeO.addTo(safe);
         
         var closedSafe = back.safeC = assets.safeC.addTo(safe);
 
         var sliderT = back.st = new zim.Slider(null, 10, 1, null, 600, 10, darkGrey, null, true ).addTo(back);
         
-        var sliderB = back.sd = new zim.Slider(null, 10, 1, null, 600, 10, darkGrey, null, true ).addTo(back);
+        var sliderB = back.sb = new zim.Slider(null, 10, 1, null, 600, 10, darkGrey, null, true ).addTo(back);
         
 
         var boxb = box.clone();

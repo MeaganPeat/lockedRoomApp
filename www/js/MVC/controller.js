@@ -61,7 +61,6 @@ var app = function(app){
             var x = obj.x;
             var y = obj.y;
             if(obj.hitTestBounds(inventoryBox)){
-                zog('hitting');
                 currentPage.removeChild(obj);
                 inventory.addChild(obj);
                 obj.loc=inventory;
@@ -87,7 +86,6 @@ var app = function(app){
         safeY = ball.y;
 
         ball.on('pressup', function(){
-            zog('drop');
                 checkInventory(ball);
         });
     
@@ -101,7 +99,6 @@ var app = function(app){
         
         curtains = left.curtains;
         curtains.on('click', function(){
-            zog('rustle rustle');
             zim.move({
                 target:curtains, 
                 x:curtains.x-3, 
@@ -236,12 +233,10 @@ var app = function(app){
                allBalls[0].y == allBalls[4].y ) {
                 //turn on light
                 beadsWin = true;
-                console.log('win');
                 rightLight.addTo(right);
                 rightBall.addTo(right).pos(stage.w/2, stage.h - stage.h/3);
                 rightBall.drag();
                 rightBall.on('pressup', function(){
-                    zog('drop');
                     checkInventory(rightBall);
                 });
                 
@@ -251,6 +246,53 @@ var app = function(app){
         
         
         //back safe
+        var slideT = back.st;
+        var slideB = back.sb;
+        var safeC = back.safeC;
+        var safeO = back.safeO;
+        var backBall = ball.clone();
+        backBall.color = 'white';
+        
+        var numT = slideT.currentValue;
+        var numB = slideB.currentValue;
+        
+        slideT.on('change', checkSliders);
+        slideB.on('change', checkSliders);
+        
+        function checkSliders(){
+            numT = slideT.currentValue;
+            numB = slideB.currentValue;
+            if(rugCheck&&
+                numT == 3&&
+                numB == 5
+              ){
+                safeC.animate({
+                    obj:{alpha:0}, 
+                    time:1000,
+                    call:addBackBall
+                });
+            }else if(numT==3&&numB==2){
+                 safeC.animate({
+                    obj:{alpha:0}, 
+                    time:1000,
+                    call:addBackBall
+                });
+            }
+        }
+        
+        function addBackBall(){
+            backBall.addTo(back);
+            backBall.alpha = 0;
+            backBall.y -= 160;
+            backBall.animate({
+                obj:{alpha:1},
+                time:800
+            });
+            backBall.drag();
+            backBall.on("pressup", function(){
+                checkInventory(backBall);
+            });
+        }
         
         //ceiling fan
         var fan = ceiling.fan;
@@ -281,6 +323,7 @@ var app = function(app){
         });
         
         //floor rug (combine)
+        var rugCheck = true;
         var rug = floor.rug;
         rug.drag();
         rug.on('pressup', function(){
@@ -289,6 +332,7 @@ var app = function(app){
                     obj:{alpha:0}, 
                     time:1000
                 });
+                rugCheck = false;
             }
         });
 

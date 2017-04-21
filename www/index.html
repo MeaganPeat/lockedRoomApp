@@ -69,9 +69,8 @@ frame.on("ready", function() {
 			lockO:frame.asset('lockO.png'),
 		  	rug:frame.asset('rug.png'),
             safeC:frame.asset('safeC.png'),
-            safe:frame.asset('safeO.png')
+            safeO:frame.asset('safeO.png')
 		};
-        zog('assets loaded');
 		
         var interiorDecorator = new zim.LayoutManager;
         var pageList = app.makePages(stage, stageW, stageH, interiorDecorator, assets);
