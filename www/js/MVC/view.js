@@ -207,12 +207,15 @@ var app = function(app){
 ///////////////////////////////////////////////////////////////////////
         var ceiling = pageList.ceiling = new zim.Container(stageW, stageH);
         ceiling.name = "Ceiling";
-        
-        //~~//ASSETS//~~//
-        var ceilingButton = new zim.Button({
-            color: "purple",
-            label:ceiling.name
-        }).addTo(ceiling);
+        var key = ceiling.key = assets.key
+            .addTo(ceiling).scale(.3);
+        key.x += 25;
+        key.y +=100;
+        var fan = ceiling.fan = assets.fan
+            .addTo(ceiling);
+        var label = ceiling.label = new zim.Label("The key is too high up!")
+            .addTo(ceiling);
+        label.alpha = 0;
         
         var boxc = box.clone();
         boxc.addTo(ceiling)
@@ -222,11 +225,12 @@ var app = function(app){
         var ceilingDesign = new zim.Layout({
             holder:ceiling,
             regions:[
-                {object: ceilingButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"},
+                {object: fan, marginTop:10, maxWidth:80, height:50, align:"center", valign:"top"},
+                {object: label, marginTop:1, maxWidth:80, align:"center", valign:"top"},
                 {object: boxc, marginTop:1, align:"center", valign:"top", height:20, backgroundColor: inventoryBackground}
             ],
             lastMargin:0,
-            //regionShape: new zim.Shape(),
+            regionShape: new zim.Shape(),
             scalingObject:stage,
             backgroundColor:ceilingPaint
         }); 
