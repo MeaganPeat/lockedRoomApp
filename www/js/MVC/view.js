@@ -91,10 +91,65 @@ var app = function(app){
         //~~//ASSETS//~~//
         
         var lamp = new zim.Container(stageW, stageH).addTo(right);
-        var lampP = assets.lampP.addTo(lamp);
-        var lampH = assets.lampH.addTo(lamp);
+        var lampP = assets.lampP;
+        lampP.addTo(lamp);
         
-        var lamp = assets.lampH.addTo(right);
+        var lampH = assets.lampH.addTo(right);
+        lampH.scale(1.5);
+        
+        //-----//
+        
+        var doorPuzzle = new zim.Container(stageW, stageH);
+          doorPuzzle.center(lamp);
+
+          var animationTime = 1000;
+          var space = 10;
+          var radius = 70;
+          var top = radius + 80;
+          var bottom = stageH - radius - 80;
+          var checkH = stageH/2;
+          var howThick = 8;
+          var colorA = gold;
+          var colorABorder = goldD;
+          var colorB = gold;
+          var colorBBorder = goldD;
+          var colorC = gold;
+          var colorCBorder = goldD;
+          
+          var colorA1 = new zim.Circle(radius, colorA, colorABorder, howThick);
+          var colorA2 = new zim.Circle(radius, colorA, colorABorder, howThick);
+          
+          var colorB1 = new zim.Circle(radius, colorB, colorBBorder, howThick);
+          var colorB2 = new zim.Circle(radius, colorB, colorBBorder, howThick);
+          
+          var colorC1 = new zim.Circle(radius, colorC, colorCBorder, howThick);
+          
+          var allBalls = right.allBalls = [colorA1, colorC1, colorB1, colorA2, colorB2];
+          
+          var ballContainer = new zim.Container(
+              ((radius*2*allBalls.length)+space*(allBalls.length) - radius), stageH);
+          ballContainer.center(doorPuzzle);
+          ballContainer.x += radius/2 + space/2;
+
+          function addBalls(){
+            for(i=0; i<allBalls.length; i++){
+              var current = allBalls[i];
+              var rand = zim.rand(0,1);
+              ballContainer.addChild(current);
+              current.x = (radius*2 + space)*i
+                console.log('adding');
+              if(i%2 == 0){
+                current.y = top;
+              } else {
+                current.y = bottom;
+              }
+            }
+            stage.update();
+          }
+          
+          addBalls();
+          
+        //-----//
         
         var boxr = box.clone();
         boxr.addTo(right)
@@ -104,11 +159,12 @@ var app = function(app){
         var rightDesign = new zim.Layout({
             holder:right,
             regions:[
-                {object: lamp, marginTop:5, width: 90, maxWidth:100, height:70, align:"center", valign:"top"},
-                {object: boxr, marginTop:1, align:"center", valign:"top"}
+                {object: lampH, marginTop:5, width: 100, maxWidth:100, height:30, align:"center", valign:"top"},
+                {object: lamp, marginTop:0, width: 100, maxWidth:100, height:30, align:"center", valign:"top"},
+                {object: boxr, marginTop:1, align:"center", valign:"top", backgroundColor: inventoryBackground}
             ],
             lastMargin:0,
-            //regionShape: new zim.Shape(),
+            regionShape: new zim.Shape(),
             scalingObject:stage,
             backgroundColor:wallpaper
         });
