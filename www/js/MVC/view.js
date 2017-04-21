@@ -47,7 +47,7 @@ var app = function(app){
             holder:front,
             regions:[
                 {object: door, marginTop:5, maxWidth:80, height:70, align:"center", valign:"top"},
-                {object: box, marginTop:1, align:"center", valign:"top"}
+                {object: box, marginTop:1, height:20, align:"center", valign:"top", backgroundColor: inventoryBackground}
             ],
             lastMargin:0,
             //regionShape: new zim.Shape(),
@@ -62,8 +62,10 @@ var app = function(app){
         left.name = "Left Wall";
         
         //~~//ASSETS//~~//
-        var curtains = assets.curtainsC;
+        var curtains = left.curtains = assets.curtainsC;
         curtains.addTo(left);
+        
+        var curtainsO = left.curtainsO = assets.curtainO;
         
         var boxl = box.clone();
         boxl.addTo(left)
@@ -74,10 +76,10 @@ var app = function(app){
             holder:left,
             regions:[
                 {object: curtains, marginTop:5, maxWidth:80, height:70, align:"center", valign:"top"},
-                {object: boxl, marginTop:1, align:"center", valign:"top"}
+                {object: boxl, marginTop:1, align:"center", height:20, valign:"top", backgroundColor: inventoryBackground}
             ],
             lastMargin:0,
-            //regionShape: new zim.Shape(),
+            regionShape: new zim.Shape(),
             scalingObject:stage,
             backgroundColor:wallpaper
         });
@@ -92,7 +94,8 @@ var app = function(app){
         
         var lamp = new zim.Container(stageW, stageH).addTo(right);
         var lampP = assets.lampP;
-        lampP.addTo(lamp);
+        //lampP.addTo(lamp);
+        //lampP.x = -20;
         
         var lampH = assets.lampH.addTo(right);
         lampH.scale(1.5);
@@ -156,19 +159,18 @@ var app = function(app){
             .pos(0, stageH - 300);
         
         //~~//LAYOUT//~~//
-        var rightDesign = new zim.Layout({
+        var rightDesign = right.design = new zim.Layout({
             holder:right,
             regions:[
                 {object: lampH, marginTop:5, width: 100, maxWidth:100, height:30, align:"center", valign:"top"},
                 {object: lamp, marginTop:0, width: 100, maxWidth:100, height:30, align:"center", valign:"top"},
-                {object: boxr, marginTop:1, align:"center", valign:"top", backgroundColor: inventoryBackground}
+                {object: boxr, marginTop:1, height:20, align:"center", valign:"top", backgroundColor: inventoryBackground}
             ],
             lastMargin:0,
             regionShape: new zim.Shape(),
             scalingObject:stage,
             backgroundColor:wallpaper
         });
-        layoutManager.add(rightDesign);
         
 ///////////////////////////////////////////////////////////////////////
 /////////BACK WALL/////////////////////////////////////////////////////
@@ -191,7 +193,7 @@ var app = function(app){
             holder:back,
             regions:[
                 {object: backButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"},
-                {object: boxb, marginTop:1, align:"center", valign:"top"}
+                {object: boxb, marginTop:1, align:"center", valign:"top", height:20, backgroundColor: inventoryBackground}
             ],
             lastMargin:0,
             //regionShape: new zim.Shape(),
@@ -221,7 +223,7 @@ var app = function(app){
             holder:ceiling,
             regions:[
                 {object: ceilingButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"},
-                {object: boxc, marginTop:1, align:"center", valign:"top"}
+                {object: boxc, marginTop:1, align:"center", valign:"top", height:20, backgroundColor: inventoryBackground}
             ],
             lastMargin:0,
             //regionShape: new zim.Shape(),
@@ -252,7 +254,7 @@ var app = function(app){
             holder:floor,
             regions:[
                 {object: floorButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"},
-                {object: boxf, marginTop:1, align:"center", valign:"top"}
+                {object: boxf, marginTop:1, align:"center", valign:"top", height:20, backgroundColor: inventoryBackground}
             ],
             lastMargin:0,
             //regionShape: new zim.Shape(),
@@ -282,7 +284,7 @@ var app = function(app){
             holder:inventory,
             regions:[
                 //{object:textBox, marginTop:0, maxWidth:100, minWidth:100 },
-                {object:box, marginTop:80, align:"center", valign:"top"}
+                {object:box, marginTop:80, align:"center", valign:"top", height:20}
                 
             ],
             lastMargin:0,

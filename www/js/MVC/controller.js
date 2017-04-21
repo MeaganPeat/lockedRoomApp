@@ -55,26 +55,11 @@ var app = function(app){
         
         var inventory = pageList.inventory;
         var inventoryBox = pageList.inventory.box;
-        //var textBox = pageList.inventory.textBox;
-        //var front = pageList.front;
-        var ball = pageList.front.testBall;
-        ball.drag();
-        ball.loc = front;
-        ball.safeCheck = true
-        safeX = ball.x;
-        safeY = ball.y;
-
-        ball.on('pressup', function(){
-                //checkTextBox(ball);
-            zog('drop');
-                checkInventory(ball);
-        });
-    
         
         //handle inventory
         function checkInventory(obj){
             var x = obj.x;
-            var y = ball.y;
+            var y = obj.y;
             if(obj.hitTestBounds(inventoryBox)){
                 zog('hitting');
                 currentPage.removeChild(obj);
@@ -94,10 +79,42 @@ var app = function(app){
         
         
         //front door
+        var ball = pageList.front.testBall;
+        ball.drag();
+        ball.loc = front;
+        ball.safeCheck = true
+        safeX = ball.x;
+        safeY = ball.y;
+
+        ball.on('pressup', function(){
+            zog('drop');
+                checkInventory(ball);
+        });
+    
+        
         
         //left curtains
+        curtains = left.curtains;
+        curtains.on('click', function(){
+            zog('rustle rustle');
+            zim.move({
+                target:curtains, 
+                x:curtains.x-3, 
+                y:curtains.y,
+                time: 100,
+                ease:"bounceOut",
+                loop:true,
+                loopCount:3, 
+                rewind:true
+                     });
+        });
         
         //right lamp
+        var rightBall =  ball.clone();
+        rightBall.color = 'red';
+        
+        var rightLight = new zim.Rectangle(stage.w, stage.h-(stage.h)*.2, 'yellow');
+        rightLight.alpha = .3;
 
         var animationTime = 1000;
         var space = 10;
@@ -196,9 +213,18 @@ var app = function(app){
                 //turn on light
                 beadsWin = true;
                 console.log('win');
+                rightLight.addTo(right);
+                rightBall.addTo(right).pos(stage.w/2, stage.h - stage.h/3);
+                rightBall.drag();
+                rightBall.on('pressup', function(){
+                    zog('drop');
+                    checkInventory(rightBall);
+                });
+                
                 stage.update();
             }
         }
+        
         
         //back safe
         
