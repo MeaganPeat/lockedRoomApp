@@ -10,6 +10,7 @@ var app = function(app){
         var back = pageList.back;
         var ceiling = pageList.ceiling;
         var floor = pageList.floor;
+        var final = pageList.final;
         
         //get first page
         var currentPage = pageList.front;      
@@ -348,7 +349,8 @@ var app = function(app){
                 ball.hitTestBounds(circles)&&
                 leftBall.hitTestBounds(circles)&&
                 rightBall.hitTestBounds(circles)&&
-                backBall.hitTestBounds(circles)
+                backBall.hitTestBounds(circles)&&
+                keyTop
               ){
                 keyTop=false;
                 console.log('dropping');
@@ -372,6 +374,7 @@ var app = function(app){
         function unlock(){
             if(key.hitTestBounds(door)){
                 console.log('unlocked');
+                final.addTo(stage);
             }
         }
     

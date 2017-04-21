@@ -305,7 +305,22 @@ var app = function(app){
         });
         layoutManager.add(inventoryLayout);
         
+//////////////////////////////////////////
+////////////FINAL SCREEN//////////////////
+//////////////////////////////////////////
+        var final = pageList.final = new zim.Container(stageW, stageH);
+        var unlocked = new zim.Label().addTo(final);
         
+        var finalLayout = new zim.Layout({
+            holder:final,
+            regions:[
+                {object:final, marginTop:25, align:'center', valign:"top", height:50}
+            ],
+            lastMargin:25,
+            scalingObject:stage,
+            backgroundColor: purple
+        });
+        layoutManager.add(final);
         
         return pageList;
     }
