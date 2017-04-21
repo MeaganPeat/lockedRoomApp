@@ -55,7 +55,7 @@ var app = function(app){
         
         var inventory = pageList.inventory;
         var inventoryBox = pageList.inventory.box;
-        var textBox = pageList.inventory.textBox;
+        //var textBox = pageList.inventory.textBox;
         //var front = pageList.front;
         var ball = pageList.front.testBall;
         ball.drag();
@@ -65,7 +65,8 @@ var app = function(app){
         safeY = ball.y;
 
         ball.on('pressup', function(){
-                checkTextBox(ball);
+                //checkTextBox(ball);
+            zog('drop');
                 checkInventory(ball);
         });
     
@@ -91,12 +92,12 @@ var app = function(app){
             stage.update();
         }
         
-        function checkTextBox(obj){
-            if(obj.hitTestBounds(textBox)){
-                zim.move(obj, safeX, safeY, 500);
-            }
-
-        }
+//        function checkTextBox(obj){
+//            if(obj.hitTestBounds(textBox)){
+//                zim.move(obj, safeX, safeY, 500);
+//            }
+//
+//        }
             
         
 //        zim.Ticker.add(function(){

@@ -1,9 +1,6 @@
 var app = function(app){
     app.makePages = function(stage, stageW, stageH, layoutManager, assets){
         var pageList = {};
-        
-        var key = assets.key;
-        //stage.addChild(key);
 
 
 ///``~~~~~~~~~~~~~``//COLOURS//``~~~~~~~~~~~~~``//
@@ -32,11 +29,9 @@ var app = function(app){
         front.name = "Front Wall";
         
         //~~//ASSETS//~~//
-        var frontButton = new zim.Button({
-            color: "blue",
-            label:front.name
-        }).addTo(front);
         
+        var door = assets.door;
+        door.addTo(front);
             
         var testBall = new zim.Circle(50, "orange")
             .addTo(front)
@@ -51,7 +46,7 @@ var app = function(app){
         var frontDesign = new zim.Layout({
             holder:front,
             regions:[
-                {object: frontButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"},
+                {object: door, marginTop:5, maxWidth:80, height:70, align:"center", valign:"top"},
                 {object: box, marginTop:1, align:"center", valign:"top"}
             ],
             lastMargin:0,
@@ -67,10 +62,8 @@ var app = function(app){
         left.name = "Left Wall";
         
         //~~//ASSETS//~~//
-        var leftButton = new zim.Button({
-            color: "red",
-            label:left.name
-        }).addTo(left);
+        var curtains = assets.curtainsC;
+        curtains.addTo(left);
         
         var boxl = box.clone();
         boxl.addTo(left)
@@ -80,7 +73,7 @@ var app = function(app){
         var leftDesign = new zim.Layout({
             holder:left,
             regions:[
-                {object: leftButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"},
+                {object: curtains, marginTop:5, maxWidth:80, height:70, align:"center", valign:"top"},
                 {object: boxl, marginTop:1, align:"center", valign:"top"}
             ],
             lastMargin:0,
@@ -96,11 +89,12 @@ var app = function(app){
         right.name = "Right Wall";
         
         //~~//ASSETS//~~//
-        var rightButton = new zim.Button({
-            color: "purple",
-            label:right.name
-        }).addTo(right);
-        rightButton.x+=100;
+        
+        var lamp = new zim.Container(stageW, stageH).addTo(right);
+        var lampP = assets.lampP.addTo(lamp);
+        var lampH = assets.lampH.addTo(lamp);
+        
+        var lamp = assets.lampH.addTo(right);
         
         var boxr = box.clone();
         boxr.addTo(right)
@@ -110,7 +104,7 @@ var app = function(app){
         var rightDesign = new zim.Layout({
             holder:right,
             regions:[
-                {object: rightButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"},
+                {object: lamp, marginTop:5, width: 90, maxWidth:100, height:70, align:"center", valign:"top"},
                 {object: boxr, marginTop:1, align:"center", valign:"top"}
             ],
             lastMargin:0,
@@ -223,16 +217,16 @@ var app = function(app){
         .addTo(inventory).pos(0, stageH - 300);
         
         
-        var textBox = pageList.inventory.textBox = box.clone();
-        textBox.addTo(inventory).pos(0, 0);
+//        var textBox = pageList.inventory.textBox = box.clone();
+//        textBox.addTo(inventory).pos(0, 0);
         
         box.alpha=0.01;
         
         var inventoryLayout = new zim.Layout({
             holder:inventory,
             regions:[
-                {object:textBox, marginTop:0, maxWidth:100, minWidth:100 },
-                {object:box, marginTop:1, align:"center", valign:"top"}
+                //{object:textBox, marginTop:0, maxWidth:100, minWidth:100 },
+                {object:box, marginTop:80, align:"center", valign:"top"}
                 
             ],
             lastMargin:0,

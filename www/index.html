@@ -46,17 +46,31 @@ frame.on("ready", function() {
     waiter.scale(8);
     
     //load assets here
-    frame.loadAssets(['key.png', 'lock.png', 'locked.png', 'unlocked.png'], "images/");
+    frame.loadAssets(['curtainsC.png', 'curtainsO.png', 'door.png', 'fan.png', 'fanK.png', 'floorCircles.png', 'key.png', 'lamp.png', 'lampH.png', 'lampP.png', 'lock.png', 'lockC.png', 'lockO.png', 'rug.png', 'safeC.png', 'safeO.png' ], "images/");
     
     frame.on('complete', function(){
         waiter.hide();
-        //store assets in an object
-        var assets = {key:frame.asset('key.png'), 
-                      lock:frame.asset('lock.png'),
-                      locked:frame.asset('locked.png'),
-                      opened:frame.asset('unlocked.png')
-                     };
-        
+        //store assets in an object to pass into veiw
+        var assets = {
+			curtainsC:frame.asset('curtainsC.png'),
+			curtainsO:frame.asset('curtainsO.png'),
+			door:frame.asset('door.png'),
+            fan:frame.asset('fan.png'),
+            fanK:frame.asset('fanK.png'),
+			floorCircles:frame.asset('floorCircles.png'),
+			key:frame.asset('key.png'), 
+			lamp:frame.asset('lamp.png'),
+			lampH:frame.asset('lampH.png'),
+			lampP:frame.asset('lampP.png'),
+			lock:frame.asset('lock.png'),
+			lockC:frame.asset('lockC.png'),
+			lockO:frame.asset('lockO.png'),
+		  	rug:frame.asset('rug.png'),
+            safeC:frame.asset('safeC.png'),
+            safe:frame.asset('safeO.png')
+		};
+        zog('assets loaded');
+		
         var interiorDecorator = new zim.LayoutManager;
         var pageList = app.makePages(stage, stageW, stageH, interiorDecorator, assets);
 
