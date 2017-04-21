@@ -244,11 +244,11 @@ var app = function(app){
         
 
         //~~//ASSETS//~~//
-        var floorButton = new zim.Button({
-            color: "purple",
-            label:floor.name
-        }).addTo(floor);
-             
+        var f = new zim.Container().addTo(floor);
+        var circles = floor.circles = assets.floorCircles
+        .addTo(f);
+        var rug = floor.rug = assets.rug.addTo(f);
+        
         var boxf = box.clone();
         boxf.addTo(floor)
             .pos(0, stageH - 300);
@@ -257,7 +257,7 @@ var app = function(app){
         var floorDesign = new zim.Layout({
             holder:floor,
             regions:[
-                {object: floorButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"},
+                {object: f, marginTop:10, maxWidth:80, height:60, align:"center", valign:"top"},
                 {object: boxf, marginTop:1, align:"center", valign:"top", height:20, backgroundColor: inventoryBackground}
             ],
             lastMargin:0,

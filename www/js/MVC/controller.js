@@ -253,6 +253,32 @@ var app = function(app){
         //back safe
         
         //ceiling fan
+        var fan = ceiling.fan;
+        var label = ceiling.label;
+        var key = ceiling.key;
+        var keyTop = true;
+        
+        fan.on("click", function(){
+            if(keyTop){
+                label.animate({
+                    obj:{alpha:1}, 
+                    time:1000,
+                    rewind: true,
+                    rewindWait:1800
+                });      
+            } 
+        });
+        
+        key.on("click", function(){
+            if(keyTop){
+                label.animate({
+                    obj:{alpha:1}, 
+                    time:1000,
+                    rewind: true,
+                    rewindWait:1800
+                });      
+            } 
+        });
         
         //floor rug (combine)
         
