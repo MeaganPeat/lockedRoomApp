@@ -39,7 +39,9 @@ frame.on("ready", function() {
 
 	var stage = frame.stage;
 	var stageW = frame.width;
+    stage.w = stageW;
 	var stageH = frame.height;
+    stage.h = stageH;
     
     var waiter = new zim.Waiter(stage, 700, '#4F06C5', '#ECB31C', null, null, null, 100);
     waiter.show();

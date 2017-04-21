@@ -92,20 +92,120 @@ var app = function(app){
             stage.update();
         }
         
-//        function checkTextBox(obj){
-//            if(obj.hitTestBounds(textBox)){
-//                zim.move(obj, safeX, safeY, 500);
-//            }
-//
-//        }
-            
         
-//        zim.Ticker.add(function(){
-//            if (ball.hitTestBounds(inventory)&&ball.hit){
-//                zog("hitting");
-//                ball.hit=false;
-//            }               
-//        }, stage);
+        //front door
+        
+        //left curtains
+        
+        //right lamp
+
+        var animationTime = 1000;
+        var space = 10;
+        var radius = 70;
+        var top = radius + 80;
+        var bottom = stage.h - radius - 80;
+        var checkH = stage.h/2;
+        var beadsWin = false;
+        
+        var allBalls = right.allBalls;
+        
+        function moveBlocks(ball){
+            if(ball.y>stage.h/2){
+                zim.move(ball, ball.x, top, animationTime/2, null, checkBeadWin);
+            } else {
+                zim.move(ball, ball.x, bottom, animationTime/2, null, checkBeadWin);
+            }
+        }
+        
+        function moveA(){
+            moveBlocks(allBalls[0]);
+            moveBlocks(allBalls[3]);
+        }
+          
+        function moveB(){
+            moveBlocks(allBalls[2]);
+            moveBlocks(allBalls[4]);
+        }
+        
+        
+        function moveC(){
+            if(allBalls[1].y > checkH && 
+              allBalls[0].y > checkH &&
+              allBalls[2].y > checkH){
+              moveBlocks(allBalls[1]);
+              moveBlocks(allBalls[2]);
+              moveBlocks(allBalls[0]);
+            } else if(allBalls[1].y < checkH && 
+              allBalls[0].y < checkH &&
+              allBalls[2].y < checkH){
+              moveBlocks(allBalls[1]);
+              moveBlocks(allBalls[0]);
+              moveBlocks(allBalls[2]);
+            } else if(
+                allBalls[1].y > checkH &&
+              allBalls[0].y > checkH){
+              moveBlocks(allBalls[1]);
+              moveBlocks(allBalls[0]);
+            } else if(allBalls[1].y < checkH &&
+              allBalls[0].y < checkH){
+              moveBlocks(allBalls[1]);
+              moveBlocks(allBalls[0]);
+            } else if(allBalls[1].y > checkH &&
+              allBalls[2].y > checkH){
+              moveBlocks(allBalls[1]);
+              moveBlocks(allBalls[2]);
+            } else if(allBalls[1].y < checkH && 
+              allBalls[2].y < checkH){
+              moveBlocks(allBalls[1]);
+              moveBlocks(allBalls[2]);
+            } else {
+              moveBlocks(allBalls[1]);
+            }
+          }
+        function initBeads(){
+            allBalls[0].on("click", function(){
+                if(!beadsWin){
+                   moveA(); 
+            }});
+            allBalls[3].on("click", function(){
+                if(!beadsWin){
+                   moveA(); 
+            }});
+            allBalls[2].on("click", function(){
+                if(!beadsWin){
+                   moveB(); 
+            }});
+            allBalls[4].on("click", function(){
+                if(!beadsWin){
+                   moveB(); 
+            }});
+            allBalls[1].on("click", function(){
+               if(!beadsWin){
+                   moveC();
+               } 
+            });
+        }
+        initBeads();
+              
+        function checkBeadWin() {
+            if(allBalls[0].y < checkH &&
+               allBalls[0].y == allBalls[1].y &&
+               allBalls[0].y == allBalls[2].y &&
+               allBalls[0].y == allBalls[3].y &&
+               allBalls[0].y == allBalls[4].y ) {
+                //turn on light
+                beadsWin = true;
+                console.log('win');
+                stage.update();
+            }
+        }
+        
+        //back safe
+        
+        //ceiling fan
+        
+        //floor rug (combine)
+        
         
         
         
