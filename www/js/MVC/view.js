@@ -79,7 +79,7 @@ var app = function(app){
                 {object: boxl, marginTop:1, align:"center", height:20, valign:"top", backgroundColor: inventoryBackground}
             ],
             lastMargin:0,
-            regionShape: new zim.Shape(),
+            //regionShape: new zim.Shape(),
             scalingObject:stage,
             backgroundColor:wallpaper
         });
@@ -167,7 +167,7 @@ var app = function(app){
                 {object: boxr, marginTop:1, height:20, align:"center", valign:"top", backgroundColor: inventoryBackground}
             ],
             lastMargin:0,
-            regionShape: new zim.Shape(),
+            //regionShape: new zim.Shape(),
             scalingObject:stage,
             backgroundColor:wallpaper
         });
@@ -178,21 +178,31 @@ var app = function(app){
         var back = pageList.back = new zim.Container(stageW, stageH);
         back.name = "Back Wall";
         
-        //~~//ASSETS//~~//
-        var backButton = new zim.Button({
-            color: "purple",
-            label:back.name
-        }).addTo(back);
+        var safe = new zim.Container().addTo(back);
+        
+        var openedSafe = back.safeO = assets.safeC.addTo(safe);
+        
+        var closedSafe = back.safeC = assets.safeC.addTo(safe);
+
+        var sliderT = back.st = new zim.Slider(null, 10, 1, null, 600, 10, darkGrey, null, true ).addTo(back);
+        
+        var sliderB = back.sd = new zim.Slider(null, 10, 1, null, 600, 10, darkGrey, null, true ).addTo(back);
+        
 
         var boxb = box.clone();
         boxb.addTo(back)
             .pos(0, stageH - 300);
         
-        //~~//LAYOUT//~~//
+        //~~//LAYOUT/sliderT/~~//
         var backDesign = new zim.Layout({
             holder:back,
             regions:[
-                {object: backButton, marginTop:5, maxWidth:80, height:15, align:"center", valign:"top"},
+                {object: safe, marginTop:5, maxWidth:80, height:30, align:"center", valign:"top"},
+                
+                {object: sliderT, marginTop:5, maxWidth:90, height:10, align:"center", valign:"top"},
+                
+                {object: sliderB, marginTop:5, maxWidth:90, height:10, align:"center", valign:"top"},
+                
                 {object: boxb, marginTop:1, align:"center", valign:"top", height:20, backgroundColor: inventoryBackground}
             ],
             lastMargin:0,
@@ -230,7 +240,7 @@ var app = function(app){
                 {object: boxc, marginTop:1, align:"center", valign:"top", height:20, backgroundColor: inventoryBackground}
             ],
             lastMargin:0,
-            regionShape: new zim.Shape(),
+            //regionShape: new zim.Shape(),
             scalingObject:stage,
             backgroundColor:ceilingPaint
         }); 

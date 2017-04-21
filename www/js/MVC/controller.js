@@ -281,11 +281,19 @@ var app = function(app){
         });
         
         //floor rug (combine)
-        
-        
-        
-        
-    }
+        var rug = floor.rug;
+        rug.drag();
+        rug.on('pressup', function(){
+            if(rug.hitTestBounds(inventoryBox)){
+                rug.animate({
+                    obj:{alpha:0}, 
+                    time:1000
+                });
+            }
+        });
+
+    
+    }//end of make controller
 
     return app;
 }(app || {});
