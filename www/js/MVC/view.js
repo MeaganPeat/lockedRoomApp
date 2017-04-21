@@ -30,7 +30,7 @@ var app = function(app){
         
         //~~//ASSETS//~~//
         
-        var door = assets.door;
+        var door = front.door = assets.door;
         door.addTo(front);
             
         var testBall = new zim.Circle(50, "orange")

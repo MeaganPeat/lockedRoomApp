@@ -78,6 +78,7 @@ var app = function(app){
         
         
         //front door
+        var door = pageList.front.door;
         var ball = pageList.front.testBall;
         ball.drag();
         ball.loc = front;
@@ -86,7 +87,8 @@ var app = function(app){
         safeY = ball.y;
 
         ball.on('pressup', function(){
-                checkInventory(ball);
+            checkInventory(ball);
+            checkCircle();
         });
     
         
@@ -125,6 +127,7 @@ var app = function(app){
                 rustle = true;
                 leftBall.drag();
                 leftBall.on('pressup', function(){
+                    checkCircle();
                     checkInventory(leftBall);
                 });
             }
@@ -237,6 +240,7 @@ var app = function(app){
                 rightBall.addTo(right).pos(stage.w/2, stage.h - stage.h/3);
                 rightBall.drag();
                 rightBall.on('pressup', function(){
+                    checkCircle();
                     checkInventory(rightBall);
                 });
                 
@@ -290,6 +294,7 @@ var app = function(app){
             });
             backBall.drag();
             backBall.on("pressup", function(){
+                checkCircle();
                 checkInventory(backBall);
             });
         }
@@ -299,6 +304,7 @@ var app = function(app){
         var label = ceiling.label;
         var key = ceiling.key;
         var keyTop = true;
+        var circles = floor.circles;
         
         fan.on("click", function(){
             if(keyTop){
@@ -332,10 +338,42 @@ var app = function(app){
                     obj:{alpha:0}, 
                     time:1000
                 });
+                checkCircle();
                 rugCheck = false;
             }
         });
-
+        
+        function checkCircle(){
+            if(
+                ball.hitTestBounds(circles)&&
+                leftBall.hitTestBounds(circles)&&
+                rightBall.hitTestBounds(circles)&&
+                backBall.hitTestBounds(circles)
+              ){
+                keyTop=false;
+                console.log('dropping');
+                key.addTo(floor).pos(stage.w/3+20,-300);
+                zim.move({
+                    target:key, 
+                    x:key.x, 
+                    y:stage.h/3,
+                    time: 1000,
+                    ease:"bounceOut",
+                }); 
+                
+                key.drag();
+                key.on('pressup', function(){
+                    checkInventory(key);
+                    unlock();
+                })
+            }
+        }
+        
+        function unlock(){
+            if(key.hitTestBounds(door)){
+                console.log('unlocked');
+            }
+        }
     
     }//end of make controller
 
