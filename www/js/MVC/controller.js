@@ -92,8 +92,13 @@ var app = function(app){
         });
     
         
-        
+        ////////////////////////////////////////
         //left curtains
+        var rustle = false
+        var leftBall = ball.clone();
+        leftBall.color = 'blue';
+        leftBall.alpha = 0;
+        
         curtains = left.curtains;
         curtains.on('click', function(){
             zog('rustle rustle');
@@ -105,14 +110,19 @@ var app = function(app){
                 ease:"bounceOut",
                 loop:true,
                 loopCount:3, 
-                rewind:true
+                rewind:true,
+                call: dropBall
                      });
         });
         
+        function dropBall(){
+            leftBall.addTo(left);
+        }
+        
+        ////////////////////////////////////////
         //right lamp
         var rightBall =  ball.clone();
         rightBall.color = 'red';
-        
         var rightLight = new zim.Rectangle(stage.w, stage.h-(stage.h)*.2, 'yellow');
         rightLight.alpha = .3;
 
