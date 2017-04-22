@@ -45,10 +45,10 @@ frame.on("ready", function() {
     
     var waiter = new zim.Waiter(stage, 700, '#4F06C5', '#ECB31C', null, null, null, 100);
     waiter.show();
-    waiter.scale(8);
+    waiter.scale(2);
     
     //load assets here
-    frame.loadAssets(['curtainsC.png', 'curtainsO.png', 'door.png', 'fan.png', 'fanK.png', 'floorCircles.png', 'key.png', 'lamp.png', 'lampH.png', 'lampP.png', 'lock.png', 'lockC.png', 'lockO.png', 'rug.png', 'safeC.png', 'safeO.png' ], "images/");
+    frame.loadAssets(['curtainsC.png', 'curtainsO.png', 'door.png', 'fan.png', 'floorCircles.png', 'test.png', 'key.png', 'lampH.png', 'lock.png', 'lockC.png', 'lockO.png', 'rug.png', 'safeC.png', 'safeO.png' ], "images/");
     
     frame.on('complete', function(){
         waiter.hide();
@@ -58,12 +58,10 @@ frame.on("ready", function() {
 			curtainsO:frame.asset('curtainsO.png'),
 			door:frame.asset('door.png'),
             fan:frame.asset('fan.png'),
-            fanK:frame.asset('fanK.png'),
 			floorCircles:frame.asset('floorCircles.png'),
+			icon:frame.asset('test.png'),
 			key:frame.asset('key.png'), 
-			lamp:frame.asset('lamp.png'),
 			lampH:frame.asset('lampH.png'),
-			lampP:frame.asset('lampP.png'),
 			lock:frame.asset('lock.png'),
 			lockC:frame.asset('lockC.png'),
 			lockO:frame.asset('lockO.png'),
@@ -79,12 +77,15 @@ frame.on("ready", function() {
         var pages = new zim.Pages({
             holder:stage,
             pages:[
+				{page:pageList.start, swipe:[pageList.front, pageList.front, pageList.front, pageList.front]},//start
                 {page:pageList.front, swipe:[pageList.left, pageList.right, pageList.ceiling, pageList.floor]},//Front
                 {page:pageList.left, swipe:[pageList.back, pageList.front, pageList.ceiling, pageList.floor]},//Left
                 {page:pageList.right, swipe:[pageList.front, pageList.back, pageList.ceiling, pageList.floor]},//Right
                 {page:pageList.back, swipe:[pageList.right, pageList.left, pageList.ceiling, pageList.floor]},//Back
                 {page:pageList.ceiling, swipe:[null, null, null, "lookDown"]},//Top
                 {page:pageList.floor, swipe:[null, null, "lookUp", null]},//Floor
+				{page:pageList.final, swipe:[null, null, null, null]}//final
+				
             ],
             transition:'slide',
             speed: 650
