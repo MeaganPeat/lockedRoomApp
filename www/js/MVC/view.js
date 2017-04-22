@@ -35,8 +35,9 @@ var app = function(app){
             
         var testBall = new zim.Circle(50, "orange")
             .addTo(front)
-            .pos(stageW/2, stageH/2);
+            .pos(stageW/2+(stageW/4), stageH/2-stageW/10);
         pageList.front.testBall = testBall;
+		testBall.scale(.5);
         
         var box = new zim.Rectangle(900, 300, inventoryBackground)
             .addTo(front)
@@ -163,7 +164,7 @@ var app = function(app){
             regions:[
                 {object: lampH, marginTop:5, width: 100, maxWidth:100, height:30, align:"center", valign:"top"},
                 {object: lamp, marginTop:0, width: 100, maxWidth:100, height:30, align:"center", valign:"top"},
-                {object: boxr, marginTop:1, align:"center", valign:"top", backgroundColor: inventoryBackground}
+                {object: boxr, marginTop:1, align:"center", valign:"top", height:20, backgroundColor: inventoryBackground}
             ],
             lastMargin:0,
             //regionShape: new zim.Shape(),
@@ -177,15 +178,18 @@ var app = function(app){
         var back = pageList.back = new zim.Container(stageW, stageH);
         back.name = "Back Wall";
         
-        var safe = new zim.Container().addTo(back);
-        
+        var safe = new zim.Container().addTo(back);    
         var openedSafe = back.safeO = assets.safeO.addTo(safe);
-        
         var closedSafe = back.safeC = assets.safeC.addTo(safe);
+		var safeLabel = back.label = new zim.Label("circles")
+            .addTo(back);
+		safeLabel.alpha=(0);
 
         var sliderT = back.st = new zim.Slider(null, 10, 1, null, 600, 10, darkGrey, null, true ).addTo(back);
+		sliderT.button.scale(2);
         
         var sliderB = back.sb = new zim.Slider(null, 10, 1, null, 600, 10, darkGrey, null, true ).addTo(back);
+		sliderB.button.scale(2);
         
 
         var boxb = box.clone();
@@ -197,11 +201,9 @@ var app = function(app){
             holder:back,
             regions:[
                 {object: safe, marginTop:5, maxWidth:80, height:30, align:"center", valign:"top"},
-                
+                {object: safeLabel, marginTop:1, maxWidth:80, height:9, align:"center", valign:"top"},
                 {object: sliderT, marginTop:5, maxWidth:90, height:10, align:"center", valign:"top"},
-                
                 {object: sliderB, marginTop:5, maxWidth:90, height:10, align:"center", valign:"top"},
-                
                 {object: boxb, marginTop:1, align:"center", valign:"top", height:20, backgroundColor: inventoryBackground}
             ],
             lastMargin:0,
@@ -266,7 +268,7 @@ var app = function(app){
         var floorDesign = new zim.Layout({
             holder:floor,
             regions:[
-                {object: f, marginTop:10, maxWidth:80, height:60, align:"center", valign:"top"},
+                {object: f, marginTop:10, maxWidth:80, height:60, align:"center", valign:"center"},
                 {object: boxf, marginTop:1, align:"center", valign:"top", height:20, backgroundColor: inventoryBackground}
             ],
             lastMargin:0,
@@ -309,18 +311,66 @@ var app = function(app){
 ////////////FINAL SCREEN//////////////////
 //////////////////////////////////////////
         var final = pageList.final = new zim.Container(stageW, stageH);
-        var unlocked = new zim.Label().addTo(final);
-        
+        var unlocked = new zim.Label({
+			text:"Success!",
+			color:gold,
+			align:'center'
+		}).addTo(final);
+		var escape = new zim.Label({
+			text:"You've escaped\nThe Pompadour Room",
+			color:gold,
+			align:'center'
+		}).addTo(final);
+        var icon = assets.icon.addTo(final);
+		var lockO = assets.lockO.addTo(final);
+		
         var finalLayout = new zim.Layout({
             holder:final,
             regions:[
-                {object:final, marginTop:25, align:'center', valign:"top", height:50}
+				{object:icon, height:15, marginTop:5, alight:'center', valign:'center'},
+                {object:unlocked, marginTop:0, maxWidth:80, align:'center', valign:"center", height:20},
+                {object:escape, marginTop:0, maxWidth:90, align:'center', valign:"center", height:10},
+				{object:lockO, marginTop:5, height: 40, aligh:'center'}
             ],
-            lastMargin:25,
+            lastMargin:5,
             scalingObject:stage,
+			//regionShape: new zim.Shape(),
             backgroundColor: purple
         });
-        layoutManager.add(final);
+        layoutManager.add(finalLayout);
+		
+//////////////////////////////////////////
+////////////START SCREEN//////////////////
+//////////////////////////////////////////
+        var start = pageList.start = new zim.Container(stageW, stageH);
+        var header = new zim.Label({
+			text:"Trapped!",
+			color:gold,
+			align:'center'
+		}).addTo(start);
+		var subheader = new zim.Label({
+			text:"You must escape\nThe Pompadour Room",
+			color:gold,
+			align:'center'
+		}).addTo(start);
+        var icon2 = icon.clone()
+		icon2.addTo(start);
+		var lockC = assets.lockC.addTo(start);
+		
+        var startLayout = new zim.Layout({
+            holder:final,
+            regions:[
+				{object:icon2, height:15, marginTop:5, alight:'center', valign:'center'},
+                {object:header, marginTop:0, maxWidth:80, align:'center', valign:"center", height:20},
+                {object:subheader, marginTop:0, maxWidth:90, align:'center', valign:"center", height:10},
+				{object:lockC, marginTop:5, height: 40, align:'center'}
+            ],
+            lastMargin:5,
+            scalingObject:stage,
+			//regionShape: new zim.Shape(),
+            backgroundColor:purple
+        });
+        layoutManager.add(startLayout);
         
         return pageList;
     }
