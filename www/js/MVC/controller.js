@@ -34,6 +34,18 @@ var app = function(app){
                     break;
                 case "Ceiling":
                     currentPage = pageList.ceiling;
+					fan.centerReg();
+					fan.x=stage.w/2;
+					fan.y=stage.h/3;
+					if(fan.spin){
+						zim.animate({
+							target:fan,
+							obj:{rotation:fan.rotation+360},
+							time: 1000,
+							ease:"linear",
+							loop:true
+						});	
+					}
                     break;
                 case "Floor":
                     currentPage = pageList.floor;
@@ -67,6 +79,12 @@ var app = function(app){
                 obj.loc=inventory;
                 obj.x = x;
                 obj.y = y;
+				if(obj!=key){
+					obj.move(obj.x, stage.h-stage.h*.1, 250);
+				}else{
+					obj.move(obj.x, stage.h-stage.h*.2, 250);
+				}
+				
             } else {
                 inventory.removeChild(obj);
                 currentPage.addChild(obj);
@@ -86,17 +104,31 @@ var app = function(app){
         ball.safeCheck = true
         safeX = ball.x;
         safeY = ball.y;
-
+		ball.moveCheck=true;
+		ball.small=true;
+		
+		ball.on('mousedown', function(){
+			if(ball.small){
+				ball.animate({
+                    obj:{scale:.9}, 
+                    time:1000,
+				});
+				ball.small=false;
+			}
+		})
         ball.on('pressup', function(){
             checkInventory(ball);
-            checkCircle();
+            checkCircle(ball);
         });
     
         
         ////////////////////////////////////////
         //left curtains
-        var rustle = false
+        var rustle = false;
         var leftBall = ball.clone();
+		if(ball.small){
+			leftBall.scale(1);
+		}
         leftBall.color = 'blue';
         //leftBall.alpha = 0;
         
@@ -127,8 +159,9 @@ var app = function(app){
                 }); 
                 rustle = true;
                 leftBall.drag();
+				leftBall.moveCheck=true;
                 leftBall.on('pressup', function(){
-                    checkCircle();
+                    checkCircle(leftBall);
                     checkInventory(leftBall);
                 });
             }
@@ -137,6 +170,9 @@ var app = function(app){
         ////////////////////////////////////////
         //right lamp
         var rightBall =  ball.clone();
+		if(ball.small){
+			rightBall.scale(1);
+		}
         rightBall.color = 'red';
         var rightLight = new zim.Rectangle(stage.w, stage.h-(stage.h)*.2, 'yellow');
         rightLight.alpha = .3;
@@ -240,8 +276,9 @@ var app = function(app){
                 rightLight.addTo(right);
                 rightBall.addTo(right).pos(stage.w/2, stage.h - stage.h/3);
                 rightBall.drag();
+				rightBall.moveCheck=true;
                 rightBall.on('pressup', function(){
-                    checkCircle();
+                    checkCircle(rightBall);
                     checkInventory(rightBall);
                 });
                 
@@ -256,13 +293,25 @@ var app = function(app){
         var safeC = back.safeC;
         var safeO = back.safeO;
         var backBall = ball.clone();
+		if(ball.small){
+			backBall.scale(1);
+		}
         backBall.color = 'white';
-        
         var numT = slideT.currentValue;
-        var numB = slideB.currentValue;
+        var numB = slideB.currentValue;		
+		var hint = back.label;
         
         slideT.on('change', checkSliders);
         slideB.on('change', checkSliders);
+
+        safeC.on("click", function(){
+			hint.animate({
+				obj:{alpha:1}, 
+				time:1000,
+				rewind: true,
+				rewindWait:1800
+			});      
+        });
         
         function checkSliders(){
             numT = slideT.currentValue;
@@ -288,20 +337,23 @@ var app = function(app){
         function addBackBall(){
             backBall.addTo(back);
             backBall.alpha = 0;
-            backBall.y -= 160;
+			backBall.x = stage.w/2
+            backBall.y = stage.h/5;
             backBall.animate({
                 obj:{alpha:1},
                 time:800
             });
             backBall.drag();
+			backBall.moveCheck=true;
             backBall.on("pressup", function(){
-                checkCircle();
+                checkCircle(backBall);
                 checkInventory(backBall);
             });
         }
         
         //ceiling fan
         var fan = ceiling.fan;
+		fan.spin=false;
         var label = ceiling.label;
         var key = ceiling.key;
         var keyTop = true;
@@ -339,13 +391,38 @@ var app = function(app){
                     obj:{alpha:0}, 
                     time:1000
                 });
-                checkCircle();
+                //checkCircle();
                 rugCheck = false;
             }
         });
         
-        function checkCircle(){
-            if(
+
+		
+		circleCheck = 0;
+        function checkCircle(obj){
+			if(obj.hitTestBounds(circles)&&obj.moveCheck){
+				obj.noDrag();
+				obj.moveCheck=false;
+				switch(circleCheck){
+					case 0://go to left spot
+						obj.move(stage.w*.5-stage.w*.21, stage.h*.4, 150);
+						break;
+					case 1://go to top spot
+						obj.move(stage.w*.5, stage.h*.4-stage.w*.2115, 150);
+						break;
+					case 2://go to right spot
+						obj.move(stage.w*.5+stage.w*.21, stage.h*.4, 150);
+						break;
+					case 3://go to the bottom spot
+						obj.move(stage.w*.5, stage.h*.4+stage.w*.2115, 150)
+						break;
+				}
+				circleCheck ++;
+			}
+				
+			
+			//check to see if the key should fall//
+           if(
                 ball.hitTestBounds(circles)&&
                 leftBall.hitTestBounds(circles)&&
                 rightBall.hitTestBounds(circles)&&
@@ -361,13 +438,14 @@ var app = function(app){
                     y:stage.h/3,
                     time: 1000,
                     ease:"bounceOut",
+					wait:400
                 }); 
-                
+				fan.spin=true;
                 key.drag();
                 key.on('pressup', function(){
                     checkInventory(key);
                     unlock();
-                })
+                });
             }
         }
         
@@ -375,6 +453,12 @@ var app = function(app){
             if(key.hitTestBounds(door)){
                 console.log('unlocked');
                 final.addTo(stage);
+				final.alpha = 0;
+				final.animate({
+                    obj:{alpha:1}, 
+                    time:1000,
+                });
+				//go(pages.final, "down")
             }
         }
     
